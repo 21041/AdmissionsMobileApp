@@ -20,8 +20,14 @@ const App = () => {
           <>
             <Stack.Screen name="Welcome" component={WelcomeScreen} />
             <Stack.Screen name="Login">
-              {() => <LoginScreen setIsAuthenticated={setIsAuthenticated} />}
+              {({navigation}) => (
+                <LoginScreen
+                  navigation={navigation}
+                  setIsAuthenticated={setIsAuthenticated}
+                />
+              )}
             </Stack.Screen>
+
             <Stack.Screen name="Signup" component={SignupScreen} />
           </>
         ) : (

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import CustomTextInput from '../components/CustomTextInput';
 import CustomButton from '../components/CustomButton';
 
@@ -8,15 +8,17 @@ const LoginScreen = ({navigation, setIsAuthenticated}) => {
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    // TODO: Add actual authentication logic
     if (email && password) {
-      setIsAuthenticated(true); // This will redirect to Home
+      setIsAuthenticated(true); // Redirect to Home
     }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
+      {/* Title */}
+      <Text style={styles.title}>Welcome Back!</Text>
+
+      {/* Input Fields */}
       <CustomTextInput
         placeholder="Email"
         value={email}
@@ -28,11 +30,17 @@ const LoginScreen = ({navigation, setIsAuthenticated}) => {
         onChangeText={setPassword}
         secureTextEntry
       />
+
+      {/* Login Button */}
       <CustomButton title="Login" onPress={handleLogin} />
-      <CustomButton
-        title="Back to Welcome"
-        onPress={() => navigation.navigate('Welcome')}
-      />
+
+      {/* Sign Up Link */}
+      <Text style={styles.signupText}>
+        Don't have an account?{' '}
+        <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
+          <Text style={styles.signupLink}>Sign Up</Text>
+        </TouchableOpacity>
+      </Text>
     </View>
   );
 };
@@ -42,12 +50,23 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#fde8e9', // Light pink background 🎀
+    paddingHorizontal: 20,
   },
   title: {
-    fontSize: 22,
+    fontSize: 24,
     fontWeight: 'bold',
+    color: '#b33e58', // Aesthetic deep pink
     marginBottom: 20,
+  },
+  signupText: {
+    marginTop: 15,
+    fontSize: 16,
+    color: '#555',
+  },
+  signupLink: {
+    fontWeight: 'bold',
+    color: '#b33e58', // Deep pink link color
   },
 });
 
