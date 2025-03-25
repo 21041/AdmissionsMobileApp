@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Alert} from 'react-native';
 import CustomTextInput from '../components/CustomTextInput';
 import CustomButton from '../components/CustomButton';
 
@@ -8,17 +8,18 @@ const LoginScreen = ({navigation, setIsAuthenticated}) => {
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    if (email && password) {
-      setIsAuthenticated(true); // Redirect to Home
+    if (email.trim() && password.trim()) {
+      setIsAuthenticated(true);
+      navigation.replace('Home'); // Ensures no back navigation to login
+    } else {
+      Alert.alert('Error', 'Please enter both email and password.');
     }
   };
 
   return (
     <View style={styles.container}>
-      {/* Title */}
       <Text style={styles.title}>Welcome Back!</Text>
 
-      {/* Input Fields */}
       <CustomTextInput
         placeholder="Email"
         value={email}
@@ -31,10 +32,8 @@ const LoginScreen = ({navigation, setIsAuthenticated}) => {
         secureTextEntry
       />
 
-      {/* Login Button */}
       <CustomButton title="Login" onPress={handleLogin} />
 
-      {/* Sign Up Link */}
       <Text style={styles.signupText}>
         Don't have an account?{' '}
         <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
