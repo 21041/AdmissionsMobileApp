@@ -8,11 +8,14 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 const TestTypeScreen = () => {
   const [selectedTests, setSelectedTests] = useState([]);
   const [testDetails, setTestDetails] = useState({});
   const [resultImages, setResultImages] = useState({});
+
+  const navigation = useNavigation();
 
   const testTypes = [
     {id: 'itu', name: 'ITU Test', requiresDetails: false},
@@ -23,10 +26,8 @@ const TestTypeScreen = () => {
 
   const handleTestToggle = test => {
     if (selectedTests.some(t => t.id === test.id)) {
-      // Remove test if already selected
       setSelectedTests(selectedTests.filter(t => t.id !== test.id));
 
-      // Clean up details for removed test
       const newDetails = {...testDetails};
       delete newDetails[test.id];
       setTestDetails(newDetails);
@@ -35,10 +36,8 @@ const TestTypeScreen = () => {
       delete newImages[test.id];
       setResultImages(newImages);
     } else {
-      // Add test if not selected
       setSelectedTests([...selectedTests, test]);
 
-      // Initialize default details for new test
       setTestDetails({
         ...testDetails,
         [test.id]: {
@@ -62,9 +61,7 @@ const TestTypeScreen = () => {
   };
 
   const handleUploadResult = testId => {
-    // Implement image picker logic here
     console.log(`Upload result image for ${testId}`);
-    // For demo, just setting a dummy image
     setResultImages({
       ...resultImages,
       [testId]: 'dummy-image-uri',
@@ -72,19 +69,20 @@ const TestTypeScreen = () => {
   };
 
   const handleSubmit = () => {
-    // Handle form submission
     console.log({
       selectedTests,
       testDetails,
       resultImages,
     });
+
+    // Navigate to FormCompletedScreen
+    navigation.navigate('FormCompletedScreen');
   };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.header}>Select Test Type(s)</Text>
 
-      {/* Test Type Selection */}
       <View style={styles.testTypeContainer}>
         {testTypes.map(test => (
           <TouchableOpacity
@@ -107,10 +105,8 @@ const TestTypeScreen = () => {
         ))}
       </View>
 
-      {/* Divider */}
       {selectedTests.length > 0 && <View style={styles.divider} />}
 
-      {/* Test Details Forms */}
       {selectedTests.map(test => (
         <View key={test.id} style={styles.testDetails}>
           <Text style={styles.testName}>{test.name}</Text>

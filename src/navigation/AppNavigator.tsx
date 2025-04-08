@@ -5,6 +5,7 @@ import LoginScreen from '../screens/LoginScreen';
 import SignupScreen from '../screens/SignupScreen';
 import HomeScreen from '../screens/HomeScreen';
 import CheckDeadline from '../screens/CheckDeadline';
+import FormCompletedScreen from '../screens/FormCompletedScreen';
 import ApplicationFormScreen from '../screens/ApplicationFormScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import ApplicantInfo from '../screens/PersonalInfo/ApplicantInfo';
@@ -67,6 +68,10 @@ const AppNavigator = ({isAuthenticated, setIsAuthenticated}) => {
           <Stack.Screen name="DegreePreference" component={DegreePreference} />
 
           <Stack.Screen name="Test" component={Test} />
+          <Stack.Screen
+            name="FormCompletedScreen"
+            component={FormCompletedScreen}
+          />
           <Stack.Screen name="PaymentScreen" component={PaymentScreen} />
           <Stack.Screen name="Profile" component={ProfileScreen} />
         </>
