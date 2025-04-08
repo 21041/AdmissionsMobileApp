@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -7,12 +7,11 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import CustomDropdown from '../../components/CustomDropdown';
 import CustomTextInput from '../../components/CustomTextInput';
 import CustomButton from '../../components/CustomButton';
 import DocumentPicker from 'react-native-document-picker';
-
 
 const MastersEducation = () => {
   const navigation = useNavigation();
@@ -84,7 +83,7 @@ const MastersEducation = () => {
     calculatePercentage(totalCGPA, value);
   };
 
-   const handleDegreeUpload = async () => {
+  const handleDegreeUpload = async () => {
     try {
       const res = await DocumentPicker.pickSingle({
         type: [DocumentPicker.types.pdf, DocumentPicker.types.images],
@@ -98,7 +97,7 @@ const MastersEducation = () => {
     }
   };
 
-    const handleTranscriptUpload = async () => {
+  const handleTranscriptUpload = async () => {
     try {
       const res = await DocumentPicker.pickSingle({
         type: [DocumentPicker.types.pdf, DocumentPicker.types.images],
@@ -113,7 +112,7 @@ const MastersEducation = () => {
   };
 
   const handleNext = () => {
-    navigation.navigate('DegreePreferences'); 
+    navigation.navigate('DegreePreference');
   };
 
   return (
@@ -218,19 +217,14 @@ const MastersEducation = () => {
         onPress={handleDegreeUpload}>
         <Text style={styles.uploadText}>↑ Upload Degree *</Text>
       </TouchableOpacity>
-      {degree && (
-        <Text style={styles.fileName}>✔ {degree.name}</Text>
-      )}
+      {degree && <Text style={styles.fileName}>✔ {degree.name}</Text>}
 
       <TouchableOpacity
         style={styles.uploadButton}
         onPress={handleTranscriptUpload}>
         <Text style={styles.uploadText}>↑ Upload Transcript *</Text>
       </TouchableOpacity>
-      {degree && (
-        <Text style={styles.fileName}>✔ {transcript.name}</Text>
-      )}
-
+      {degree && <Text style={styles.fileName}>✔ {transcript.name}</Text>}
 
       <View style={styles.saveButton}>
         <CustomButton title="Next" onPress={handleNext} />

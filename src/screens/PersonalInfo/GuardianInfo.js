@@ -18,7 +18,7 @@ const GuardianInfo = ({navigation}) => {
 
   // Define the handleNext function here
   const handleNext = () => {
-    navigation.navigate('Test'); // Navigate to the SecondryEducation screen
+    navigation.navigate('SecondaryEducation'); // Navigate to the SecondryEducation screen
   };
 
   return (

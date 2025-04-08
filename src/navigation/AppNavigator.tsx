@@ -11,8 +11,12 @@ import ApplicantInfo from '../screens/PersonalInfo/ApplicantInfo';
 import AddressInfo from '../screens/PersonalInfo/AddressInfo';
 import ParentsInfo from '../screens/PersonalInfo/ParentsInfo';
 import GuardianInfo from '../screens/PersonalInfo/GuardianInfo';
-import SecondryEducation from '../screens/Academics/SecondryEducation';
-import BachelorEducation from '../screens/Academics/BachelorLevelEducation';
+import SecondaryEducation from '../screens/Academics/SecondaryEducation';
+import BachelorsEducation from '../screens/Academics/BachelorsEducation';
+import HigherSecondary from '../screens/Academics/HigherSecondaryEducation';
+import Masters from '../screens/Academics/MastersEducation';
+import DegreePreference from '../screens/Academics/DegreePreference';
+
 import Test from '../screens/Test/TestTypeScreen';
 import PaymentScreen from '../screens/PaymentScreen';
 
@@ -47,17 +51,23 @@ const AppNavigator = ({isAuthenticated, setIsAuthenticated}) => {
           <Stack.Screen name="AddressInfo" component={AddressInfo} />
           <Stack.Screen name="ParentsInfo" component={ParentsInfo} />
           <Stack.Screen name="GuardianInfo" component={GuardianInfo} />
+          <Stack.Screen
+            name="SecondaryEducation"
+            component={SecondaryEducation}
+          />
+          <Stack.Screen
+            name="HigherSecondaryEducation"
+            component={HigherSecondary}
+          />
+          <Stack.Screen
+            name="BachelorsEducation"
+            component={BachelorsEducation}
+          />
+          <Stack.Screen name="MastersEducation" component={Masters} />
+          <Stack.Screen name="DegreePreference" component={DegreePreference} />
+
           <Stack.Screen name="Test" component={Test} />
           <Stack.Screen name="PaymentScreen" component={PaymentScreen} />
-          <Stack.Screen
-            name="BachelorEducation"
-            component={BachelorEducation}
-          />
-
-          <Stack.Screen
-            name="SecondryEducation"
-            component={SecondryEducation}
-          />
           <Stack.Screen name="Profile" component={ProfileScreen} />
         </>
       )}
