@@ -43,7 +43,7 @@ const HomeScreen = ({navigation}) => {
         />
         <CustomButton
           title="Check Deadlines"
-          onPress={() => navigation.navigate('Deadlines')}
+          onPress={() => navigation.navigate('CheckDeadline')}
         />
       </View>
 

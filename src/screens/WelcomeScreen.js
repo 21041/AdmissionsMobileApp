@@ -1,9 +1,41 @@
-import React from 'react';
-import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
+import React, {useEffect, useRef} from 'react';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+  Animated,
+} from 'react-native';
 
 const WelcomeScreen = ({navigation}) => {
+  const moveAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(moveAnim, {
+          toValue: -10,
+          duration: 700,
+          useNativeDriver: true,
+        }),
+        Animated.timing(moveAnim, {
+          toValue: 0,
+          duration: 700,
+          useNativeDriver: true,
+        }),
+      ]),
+    ).start();
+  }, [moveAnim]);
+
   return (
     <View style={styles.container}>
+      {/* Animated Convocation Cap Icon */}
+      <Animated.Image
+        source={require('../assets/images/convocation-cap.png')} // Change to your actual file name
+        style={[styles.cap, {transform: [{translateY: moveAnim}]}]}
+      />
+
       {/* ITU Logo */}
       <Image
         source={require('../assets/images/bgHomeScreen.jpg')}
@@ -35,11 +67,17 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f9f9f9', // Light background for a soft aesthetic
+    backgroundColor: '#f9f9f9',
     paddingHorizontal: 20,
   },
+  cap: {
+    width: 60,
+    height: 60,
+    marginBottom: 20,
+    resizeMode: 'contain',
+  },
   logo: {
-    width: 150, // Adjust size as needed
+    width: 150,
     height: 150,
     marginBottom: 20,
     resizeMode: 'contain',
@@ -47,16 +85,16 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 22,
     fontWeight: 'bold',
-    color: '#333', // Darker color for contrast
+    color: '#333',
     textAlign: 'center',
     marginBottom: 30,
   },
   buttonContainer: {
     width: '80%',
-    gap: 15, // Space between buttons
+    gap: 15,
   },
   button: {
-    backgroundColor: '#4CAF50', // Soft green color for a fresh look
+    backgroundColor: '#4CAF50',
     paddingVertical: 12,
     borderRadius: 10,
     alignItems: 'center',
@@ -67,7 +105,7 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   signupButton: {
-    backgroundColor: '#FFFFFF', // White button for Sign Up
+    backgroundColor: '#FFFFFF',
     borderWidth: 1,
     borderColor: '#4CAF50',
   },
@@ -77,7 +115,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   signupText: {
-    color: '#4CAF50', // Green text for Sign Up button
+    color: '#4CAF50',
   },
 });
 

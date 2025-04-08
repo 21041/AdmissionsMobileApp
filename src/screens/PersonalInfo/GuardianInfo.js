@@ -16,6 +16,11 @@ const GuardianInfo = ({navigation}) => {
   const [monthlyIncome, setMonthlyIncome] = useState('');
   const [postalAddress, setPostalAddress] = useState('');
 
+  // Define the handleNext function here
+  const handleNext = () => {
+    navigation.navigate('Test'); // Navigate to the SecondryEducation screen
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Guardian Information</Text>
@@ -86,6 +91,14 @@ const GuardianInfo = ({navigation}) => {
         >
           <Text style={styles.buttonText}>Save</Text>
         </TouchableOpacity>
+
+        {/* Add the Next Button */}
+        <TouchableOpacity
+          style={[styles.button, styles.nextButton]}
+          onPress={handleNext} // Call handleNext function to navigate
+        >
+          <Text style={styles.buttonText}>Next</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -127,6 +140,9 @@ const styles = StyleSheet.create({
   },
   saveButton: {
     backgroundColor: '#007BFF',
+  },
+  nextButton: {
+    backgroundColor: '#28a745', // You can adjust this color to match your app's theme
   },
   buttonText: {
     color: '#FFF',

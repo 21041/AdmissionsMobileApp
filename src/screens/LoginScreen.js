@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Alert} from 'react-native';
+import {getAuth, signInWithEmailAndPassword} from 'firebase/auth'; // Import from Firebase modular SDK
 import CustomTextInput from '../components/CustomTextInput';
 import CustomButton from '../components/CustomButton';
+import {auth} from '../../firebaseConfig';
 
 const LoginScreen = ({navigation, setIsAuthenticated}) => {
   const [email, setEmail] = useState('');
@@ -9,8 +11,20 @@ const LoginScreen = ({navigation, setIsAuthenticated}) => {
 
   const handleLogin = () => {
     if (email.trim() && password.trim()) {
-      setIsAuthenticated(true);
-      navigation.replace('Home'); // Ensures no back navigation to login
+      const auth = getAuth();
+
+      signInWithEmailAndPassword(auth, email, password)
+        .then(() => {
+          // Changed from replace() to reset()
+          setIsAuthenticated(true);
+          navigation.reset({
+            index: 0,
+            routes: [{name: 'Home'}],
+          });
+        })
+        .catch(error => {
+          Alert.alert('Login Error', error.message);
+        });
     } else {
       Alert.alert('Error', 'Please enter both email and password.');
     }
@@ -49,7 +63,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fde8e9', // Light pink background 🎀
+    backgroundColor: '#fde8e9', // Light pink background
     paddingHorizontal: 20,
   },
   title: {
