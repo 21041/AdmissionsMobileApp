@@ -1,99 +1,125 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {SafeAreaView, ScrollView, View, Text, StyleSheet} from 'react-native';
 import CustomCard from '../components/CustomCard';
 import CustomButton from '../components/CustomButton';
 
 const HomeScreen = ({navigation}) => {
-  const userName = 'Faiqa Iqbal'; // Placeholder, replace with actual user data
-  const applicationStatus = 'Pending'; // Example status (can be "Accepted" or "Rejected")
+  const userName = 'Faiqa Iqbal';
+  const applicationStatus = 'Pending';
 
   const getStatusStyle = () => {
     switch (applicationStatus) {
       case 'Accepted':
-        return {color: '#2E7D32', backgroundColor: '#E8F5E9'}; // Green
+        return {color: '#2E7D32', backgroundColor: '#E8F5E9'};
       case 'Rejected':
-        return {color: '#D32F2F', backgroundColor: '#FFEBEE'}; // Red
+        return {color: '#D32F2F', backgroundColor: '#FFEBEE'};
       default:
-        return {color: '#F9A825', backgroundColor: '#FFF3E0'}; // Yellow
+        return {color: '#F9A825', backgroundColor: '#FFF3E0'};
     }
   };
 
   return (
-    <View style={styles.container}>
-      {/* Welcome Message */}
-      <Text style={styles.welcomeText}>Welcome, {userName}! 🎓</Text>
+    <SafeAreaView style={styles.safeArea}>
+      <ScrollView contentContainerStyle={styles.container}>
+        {/* Welcome */}
+        <Text style={styles.welcomeText}>Welcome, {userName}! 🎓</Text>
 
-      {/* Application Status Card */}
-      <CustomCard
-        title="Application Status"
-        description={`Your application is ${applicationStatus.toLowerCase()}.`}
-        status={applicationStatus}
-        style={[styles.statusCard, getStatusStyle()]}
-      />
+        {/* Status Card */}
+        <CustomCard
+          title="Application Status"
+          description={`Your application is ${applicationStatus.toLowerCase()}.`}
+          status={applicationStatus}
+          style={[styles.statusCard, getStatusStyle()]}
+        />
 
-      {/* Quick Action Buttons */}
-      <View style={styles.buttonContainer}>
-        <CustomButton
-          title="Apply Now"
-          onPress={() => navigation.navigate('Application')}
-        />
-        <CustomButton
-          title="Go to Profile"
-          onPress={() => navigation.navigate('Profile')}
-        />
-        <CustomButton
-          title="Check Deadlines"
-          onPress={() => navigation.navigate('CheckDeadline')}
-        />
-      </View>
+        {/* Buttons */}
+        <View style={styles.buttonContainer}>
+          {[
+            {title: 'Apply Now', screen: 'Application'},
+            {title: 'Go to Profile', screen: 'Profile'},
+            {title: 'Check Deadlines', screen: 'CheckDeadline'},
+          ].map(btn => (
+            <CustomButton
+              key={btn.screen}
+              title={btn.title}
+              onPress={() => navigation.navigate(btn.screen)}
+              style={styles.button}
+              textStyle={styles.buttonText}
+            />
+          ))}
+        </View>
 
-      {/* Important Notice */}
-      <View style={styles.noticeBox}>
-        <Text style={styles.noticeText}>
-          📢 Admission Deadline: March 30, 2025
-        </Text>
-      </View>
-    </View>
+        {/* Notice */}
+        <View style={styles.noticeBox}>
+          <Text style={styles.noticeText}>
+            📢 Admission Deadline: March 30, 2025
+          </Text>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  safeArea: {
     flex: 1,
+    backgroundColor: '#FFDDE1',
+  },
+  container: {
+    flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#FFDDE1',
-    paddingHorizontal: 20,
+    padding: 20,
+    paddingBottom: 40,
   },
   welcomeText: {
-    fontSize: 22,
-    fontWeight: 'bold',
+    fontSize: 24,
+    fontWeight: '700',
     color: '#333',
-    marginBottom: 15,
+    marginBottom: 20,
   },
   statusCard: {
-    width: '90%',
-    padding: 15,
-    borderRadius: 10,
-    textAlign: 'center',
+    width: '100%',
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    padding: 20,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
   buttonContainer: {
     width: '100%',
     alignItems: 'center',
-    gap: 10, // Spacing between buttons
     marginTop: 20,
+  },
+  button: {
+    width: '70%',
+    paddingVertical: 14,
+    borderRadius: 25,
+    backgroundColor: '#4ECDC4',
+    marginVertical: 8,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '600',
   },
   noticeBox: {
     marginTop: 30,
     backgroundColor: '#FFF3CD',
-    padding: 10,
-    borderRadius: 8,
-    width: '90%',
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+    width: '100%',
     alignItems: 'center',
   },
   noticeText: {
     color: '#856404',
-    fontWeight: 'bold',
+    fontSize: 16,
+    fontWeight: '600',
   },
 });
 

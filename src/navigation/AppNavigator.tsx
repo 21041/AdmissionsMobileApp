@@ -1,5 +1,8 @@
+// src/navigation/AppNavigator.tsx
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
+import {useSelector} from 'react-redux';
+
 import WelcomeScreen from '../screens/WelcomeScreen';
 import LoginScreen from '../screens/LoginScreen';
 import SignupScreen from '../screens/SignupScreen';
@@ -17,33 +20,26 @@ import BachelorsEducation from '../screens/Academics/BachelorsEducation';
 import HigherSecondary from '../screens/Academics/HigherSecondaryEducation';
 import Masters from '../screens/Academics/MastersEducation';
 import DegreePreference from '../screens/Academics/DegreePreference';
-
 import Test from '../screens/Test/TestTypeScreen';
 import PaymentScreen from '../screens/PaymentScreen';
 
 const Stack = createStackNavigator();
 
-const AppNavigator = ({isAuthenticated, setIsAuthenticated}) => {
+const AppNavigator: React.FC = () => {
+  // Pull your auth flag out of Redux state
+  const isAuthenticated = useSelector(
+    (state: any) => state.main.isAuthenticated,
+  );
+
   return (
-    <Stack.Navigator>
-      {/* Public Screens */}
-      {!isAuthenticated && (
+    <Stack.Navigator screenOptions={{headerShown: false}}>
+      {!isAuthenticated ? (
         <>
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
-          <Stack.Screen name="Login">
-            {({navigation}) => (
-              <LoginScreen
-                navigation={navigation}
-                setIsAuthenticated={setIsAuthenticated}
-              />
-            )}
-          </Stack.Screen>
+          <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Signup" component={SignupScreen} />
         </>
-      )}
-
-      {/* Private Screens */}
-      {isAuthenticated && (
+      ) : (
         <>
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Application" component={ApplicationFormScreen} />
@@ -66,7 +62,6 @@ const AppNavigator = ({isAuthenticated, setIsAuthenticated}) => {
           />
           <Stack.Screen name="MastersEducation" component={Masters} />
           <Stack.Screen name="DegreePreference" component={DegreePreference} />
-
           <Stack.Screen name="Test" component={Test} />
           <Stack.Screen
             name="FormCompletedScreen"
